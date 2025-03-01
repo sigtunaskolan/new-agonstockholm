@@ -29,7 +29,14 @@
     "CONTACT": "Kontakt",
     "LET_TALK": "Låt oss prata",
     "REACH_OUT": "Nå ut",
+    "NAVIGATION": "Navigation",
     "ADDRESS": "Adress"
+  },
+  "Footer": {
+    "RIGHTS": "Alla rättigheter förbehållna.",
+    "PRIVACY": "Integritetspolicy",
+    "TERMS": "Användarvillkor",
+    "FOLLOW_US": "Följ oss"
   },
   "Error": {
     "title": "Fel",

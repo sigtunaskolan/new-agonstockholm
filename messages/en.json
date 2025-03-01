@@ -29,7 +29,14 @@
     "CONTACT": "Contact",
     "LET_TALK": "Let's talk",
     "REACH_OUT": "Reach out",
+    "NAVIGATION": "Navigation",
     "ADDRESS": "Address"
+  },
+  "Footer": {
+    "RIGHTS": "All Rights Reserved.",
+    "PRIVACY": "Privacy Policy",
+    "TERMS": "Terms of Service",
+    "FOLLOW_US": "Follow Us"
   },
   "Error": {
     "title": "Error",
