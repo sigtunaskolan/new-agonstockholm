@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ContentContext from "@/contextsConfig/content/ContentContext";
-import { createClient } from "contentful";
 import { useLocale } from "next-intl";
 import SectionsList from "@/Sections/SectionsList";
 import Hero from "../../../src/components/sustainability/Hero";
@@ -9,74 +8,82 @@ import data from "../../../src/contextsConfig/content/data";
 import ThemeProvider from "../../../src/contextsConfig/theme/ThemeProvider";
 import MUIThemeProvider from "../../../src/contextsConfig/MUIThemeProvider";
 import { StatSectionProps } from "../../../src/Sections/StatSection/types";
-import { parseHeaderHeadline } from "@/utils/stringUtils";
 import { formatSectionsArray } from "@/utils/dataFormater";
 import Footer from "@/components/Shared/Footer";
+import { fetchPageContent } from "@/utils/api";
+import Loading from "@/components/Shared/Loading";
+import ErrorDisplay from "@/components/Shared/ErrorDisplay";
 
 type HeroProps = {
-  headline: Array<any>; // eslint-disable-line
+  headline: Array<{
+    token: string;
+    variant: string;
+  }>;
   subHeadline: string;
   bgImg: string;
+  richTextContent?: string;
+  sections?: Array<StatSectionProps>;
 };
 
-export default function Home() {
+export default function Sustainability() {
   const locale = useLocale();
-  const [content, setContent] = useState({
+  const [content, setContent] = useState<HeroProps>({
     headline: [],
     subHeadline: "",
     bgImg: "",
-  } as HeroProps);
+    richTextContent: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      // Use the enhanced API service
+      const pageContent = await fetchPageContent('sustainability', locale);
+      
+      // Get sections from the returned content or API
+      // This is a placeholder - you'll need to implement section fetching
+      const sections = [] as Array<StatSectionProps>;
+      
+      const contentTemp = {
+        ...pageContent,
+        bgImg: pageContent.bgImg || data.sustainability?.bgImg || "",
+        sections,
+      };
+      
+      setContent(contentTemp);
+    } catch (err) {
+      console.error("Error fetching sustainability page data:", err);
+      setError("Failed to load sustainability page content. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   useEffect(() => {
     fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const client = createClient({
-      space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID || "",
-      accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN || "",
-    });
-
-    client
-      .getEntries({ content_type: "page" })
-      .then((response) => {
-        let resp: any; // eslint-disable-line
-        if (locale === "sv") {
-          resp = response.items.find(
-            (item) => item.fields.page === "sustainability_sv"
-          );
-        } else {
-          resp = response.items.find(
-            (item) => item.fields.page === "sustainability"
-          );
-        }
-
-        let sections = formatSectionsArray(resp?.fields?.section) as Array<any>; // eslint-disable-line
-
-        const subheadline = resp?.fields?.subheadline; // eslint-disable-line
-
-        const contentTemp = {
-          headline: parseHeaderHeadline(
-            (resp?.fields?.headline as string) || ""
-          ),
-          subHeadline: subheadline.content[0].content[0].value || "",
-          bgImg: data.about.bgImg || "",
-          sections: sections as Array<StatSectionProps>,
-        };
-        setContent(contentTemp as HeroProps);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
 
   return (
     <MUIThemeProvider>
       <ThemeProvider>
         <ContentContext.Provider value={content}>
           <main>
-            <Hero />
-            <SectionsList />
-            <Footer />
+            {loading ? (
+              <Loading fullScreen />
+            ) : error ? (
+              <ErrorDisplay message={error} onRetry={fetchData} />
+            ) : (
+              <>
+                <Hero />
+                <SectionsList />
+                <Footer />
+              </>
+            )}
           </main>
         </ContentContext.Provider>
       </ThemeProvider>

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-type TextVariant = "title" | "subtitle" | "label";
+type TextVariant = "title" | "subtitle" | "label" | "small";
 
 type TextProps = React.HTMLAttributes<HTMLDivElement> & {
   textVariant?: TextVariant;
@@ -30,12 +30,28 @@ const Text = styled.span<TextProps>(({ theme, textVariant }) => {
       },
     };
   }
+  if (textVariant === "small") {
+    return {
+      fontSize: "14px",
+      fontWeight: 400,
+      fontFamily: "sans-serif",
+      color: theme.colors.lightGray,
+      [`@media (max-width: ${theme.breakPoint.mobile})`]: {
+        fontSize: "12px",
+        textAlign: "center",
+      },
+    };
+  }
 
   return {
     fontSize: "18px",
     fontWeight: 400,
     fontFamily: "sans-serif",
     color: theme.colors.white,
+    transition: "color 0.2s ease",
+    "&:hover": {
+      color: theme.colors.primary,
+    },
     [`@media (max-width: ${theme.breakPoint.mobile})`]: {
       fontSize: "14px",
       opacity: 1,

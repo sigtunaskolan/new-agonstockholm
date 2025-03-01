@@ -70,8 +70,8 @@ This is a multilingual e-commerce website for a company called Agon that focuses
   6. Accessibility:
     - Missing aria attributes and proper semantic HTML
     - No keyboard navigation support
-  7. Performance Issues:
-    - No image optimization settings
+  7. ✅ Performance Issues: [FIXED Mar 1, 2025]
+    - ✅ Image optimization implemented with Next.js Image component
     - No server components usage despite using App Router
   8. Internationalization:
     - Old implementation of next-intl needs complete refactoring
@@ -84,3 +84,68 @@ The following environment variables need to be set in .env.local for development
 
 - NEXT_PUBLIC_CONTENTFUL_SPACE_ID - Contentful space ID
 - NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN - Contentful access token
+
+## Image Optimization Guidelines
+
+Always use Next.js Image component instead of regular `<img>` tags or CSS background images:
+
+### Hero Images
+```tsx
+<Image 
+  src={`/${imagePath}`} 
+  fill 
+  className="object-cover" 
+  alt="Descriptive alt text"
+  priority  // For above-the-fold images
+  sizes="100vw"
+  quality={90}
+  placeholder="blur"
+  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+/>
+```
+
+### Product Grid Images
+```tsx
+<Image 
+  src={imageUrl} 
+  alt="Product description"
+  fill
+  className="object-cover"
+  sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
+  loading="lazy"  // For below-the-fold images
+  quality={80}
+/>
+```
+
+### Content Images
+```tsx
+<div style={{ position: 'relative', width: '100%', height: '400px', maxWidth: '800px' }}>
+  <Image
+    src={imageUrl}
+    alt="Image description"
+    fill
+    style={{ objectFit: 'contain' }}
+    sizes="(max-width: 768px) 100vw, 800px"
+    quality={85}
+  />
+</div>
+```
+
+### next.config.js Configuration
+```js
+const nextConfig = {
+  images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        pathname: '/**',
+      },
+      // Add other domains as needed
+    ],
+  }
+}

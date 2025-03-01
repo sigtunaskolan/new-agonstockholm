@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { useTheme } from "@emotion/react";
+import Image from "next/image";
 
 type Props = {
   image: string;
@@ -28,16 +29,22 @@ export default function RightSection({ image }: Props) {
         style={{
           height: "600px",
           width: "100%",
-          backgroundImage: `url(https://${image})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "top",
-          backgroundSize: "contain",
+          position: "relative",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
+        <Image
+          src={`https://${image}`}
+          alt="Statistical visualization"
+          fill
+          style={{ objectFit: "contain" }}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          quality={85}
+          loading="lazy"
+        />
         <div
           style={{
             width: "100%",
@@ -45,7 +52,13 @@ export default function RightSection({ image }: Props) {
             justifyContent: "flex-end",
           }}
         >
-          <img src="/points.svg" alt="Icon" />
+          <Image 
+            src="/points.svg" 
+            alt="Icon"
+            width={24}
+            height={24}
+            priority
+          />
         </div>
         <div
           style={{
