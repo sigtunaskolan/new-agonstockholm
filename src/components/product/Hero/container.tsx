@@ -30,6 +30,7 @@ const Container = styled.div(() => {
 });
 
 const GradientOverlay = styled("div")(() => {
+  const theme = useTheme();
   return {
     position: "absolute",
     top: "0",
@@ -40,9 +41,24 @@ const GradientOverlay = styled("div")(() => {
     paddingTop: "30px",
     display: "flex",
     flexDirection: "column",
-    background:
-      "linear-gradient(to right, rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.5))",
-    backdropFilter: "blur(8px)",
+    background: `
+      linear-gradient(
+        135deg, 
+        rgba(10, 10, 10, 0.7), 
+        rgba(10, 10, 10, 0.4) 50%,
+        rgba(${theme.colors.primary.replace('rgb(', '').replace(')', '')}, 0.3)
+      )
+    `,
+    backdropFilter: "blur(4px)",
+    [`@media (max-width: ${theme.breakPoint.mobile})`]: {
+      background: `
+        linear-gradient(
+          to bottom,
+          rgba(10, 10, 10, 0.8),
+          rgba(${theme.colors.primary.replace('rgb(', '').replace(')', '')}, 0.6)
+        )
+      `,
+    },
   };
 });
 

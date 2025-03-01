@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Grow, Box } from "@mui/material";
+import { Grow } from "@mui/material";
 import Header from "../../Shared/Header";
 import Container from "./container";
 import Headline from "./Headline";
 import SubHeadline from "./SubHeadline";
 import CTA from "../CTA";
+import * as S from '@/components/LandingPage/container';
 
 export default function Hero() {
   const [show, setShow] = React.useState(false);
@@ -22,9 +23,7 @@ export default function Hero() {
   return (
     <Container bgImg={bgImg}>
       <div>
-        <Box mb="140px">
-          <Header />
-        </Box>
+        <Header />
         <Grow in={show} timeout={1000}>
           <div>
             <Headline />

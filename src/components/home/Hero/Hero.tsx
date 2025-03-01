@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Grow, Box } from "@mui/material";
+import { Grow, Box, Fade } from "@mui/material";
 import Header from "../../Shared/Header";
 import Container from "./container";
 import Headline from "./Headline";
 import SubHeadline from "./SubHeadline";
 import CTA from "../CTA";
+import GoDownButton from "@/components/Shared/GoDownButton";
 
 export default function Hero() {
   const [show, setShow] = React.useState(false);
@@ -19,25 +20,32 @@ export default function Hero() {
   return (
     <Container bgImg={bgImg}>
       <div>
-        <Box mb="140px">
+        <Box mb={{ xs: "80px", md: "140px" }}>
           <Header />
         </Box>
-        <Grow in={show} timeout={1000}>
+        <Fade in={show} timeout={800}>
           <div>
             <Headline />
           </div>
-        </Grow>
-        <Grow in={show} timeout={2000}>
+        </Fade>
+        <Fade in={show} timeout={1200}>
           <div>
             <SubHeadline />
           </div>
-        </Grow>
+        </Fade>
       </div>
-      <Grow in={show} timeout={3000}>
-        <div>
-          <CTA />
-        </div>
-      </Grow>
+      <Box display="flex" flexDirection="column" alignItems="center" gap={4}>
+        <Grow in={show} timeout={1600}>
+          <div>
+            <CTA />
+          </div>
+        </Grow>
+        <Fade in={show} timeout={2000}>
+          <div>
+            <GoDownButton href="#productsList" />
+          </div>
+        </Fade>
+      </Box>
     </Container>
   );
 }

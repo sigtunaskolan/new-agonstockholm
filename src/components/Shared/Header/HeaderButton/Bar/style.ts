@@ -4,11 +4,13 @@ import { useTheme } from "@emotion/react";
 const Bar = styled("div")(() => {
   const theme = useTheme();
   return {
-    width: "25px",
-    height: "3px",
-    background: theme.colors.secondaryDark,
-    marginTop: "2px",
-    marginBottom: "2px",
+    width: "22px",
+    height: "2.5px",
+    background: theme.colors.secondary,
+    marginTop: "3px",
+    marginBottom: "3px",
+    borderRadius: "1px",
+    transition: "all 0.3s ease",
   };
 });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Fade } from "@mui/material";
 import Container from "./container";
 import Text from "../Text";
 import Button from "./Button";
@@ -18,7 +18,10 @@ export default function ProductItem({ bgImg, label, id }: Props) {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ width: "100%" }}
+        sx={{ 
+          width: "100%",
+          padding: "20px",
+        }}
       >
         <Box
           display={"flex"}
@@ -32,7 +35,7 @@ export default function ProductItem({ bgImg, label, id }: Props) {
             {`${label[0]}${label[1]}`}
           </Text>
         </Box>
-        <Link href={`/product/${id}`}>
+        <Link href={`/product/${id}`} style={{ textDecoration: 'none' }}>
           <Button />
         </Link>
       </Box>

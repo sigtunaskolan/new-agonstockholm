@@ -27,22 +27,22 @@ const GradientOverlay = styled("div")(() => {
     right: "0",
     bottom: "0",
     left: "0",
-    zIndex: 10,
-    paddingTop: "30px",
-    paddingLeft: "140px",
-    paddingRight: "140px",
+    zIndex: 1, // Lower z-index to ensure header appears on top
+    paddingTop: "120px", // Increased to account for fixed header
+    paddingLeft: "5%",
+    paddingRight: "5%",
+    display: "flex", 
+    flexDirection: "column",
+    justifyContent: "center",
     background:
-      "linear-gradient(to bottom, rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 8))",
+      "linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))",
     [`@media (max-width: ${theme.breakPoint.tablet})`]: {
-      paddingLeft: "60px",
-      paddingRight: "60px",
+      paddingLeft: "5%",
+      paddingRight: "5%",
     },
     [`@media (max-width: ${theme.breakPoint.mobile})`]: {
-      paddingLeft: "20px",
-      paddingRight: "20px",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
+      paddingLeft: "5%",
+      paddingRight: "5%",
       paddingBottom: "100px",
     },
   };

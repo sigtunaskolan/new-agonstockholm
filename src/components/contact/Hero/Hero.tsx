@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Grow, Box } from "@mui/material";
+import { Grow } from "@mui/material";
 import Header from "../../Shared/Header";
 import Container from "./container";
 import Headline from "./Headline";
 import SubHeadline from "./SubHeadline";
 import CTA from "../CTA";
+import * as S from '@/components/LandingPage/container';
 
 export default function Hero() {
   const [show, setShow] = useState(false);
@@ -17,12 +18,11 @@ export default function Hero() {
     setBgImg(tempBgImg);
   }, []);
 
+  // Updated to match landing page styling with a fixed header
   return (
     <Container bgImg={bgImg}>
       <div>
-        <Box mb="25vh">
-          <Header />
-        </Box>
+        <Header />
         <Grow in={show} timeout={1000}>
           <div>
             <Headline />

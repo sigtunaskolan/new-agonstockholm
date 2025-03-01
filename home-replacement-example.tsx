@@ -2,18 +2,15 @@
 import React, { useEffect, useState } from "react";
 import ContentContext from "@/contextsConfig/content/ContentContext";
 import { useLocale } from "next-intl";
-import Footer from "@/components/Shared/Footer";
-import Header from "@/components/Shared/Header";
 import ThemeProvider from "@/contextsConfig/theme/ThemeProvider";
 import MUIThemeProvider from "@/contextsConfig/MUIThemeProvider";
 import Loading from "@/components/Shared/Loading";
 import ErrorDisplay from "@/components/Shared/ErrorDisplay";
-import { 
-  fetchPageContent, fetchProducts, fetchStats, fetchInsights,
-  ContentfulHero, ContentfulProduct, ContentfulStat, ContentfulInsight 
-} from "@/utils/api";
+import { fetchPageContent, fetchProducts, ContentfulHero, ContentfulProduct } from "@/utils/api";
+import Header from "@/components/Shared/Header";
+import Footer from "@/components/Shared/Footer";
 
-// Import the styled components from LandingPage
+// Importing the styled components from LandingPage
 import * as S from '@/components/LandingPage/container';
 
 export default function Home() {
@@ -24,17 +21,38 @@ export default function Home() {
     bgImg: "",
     richTextContent: "",
   });
-  const [products, setProducts] = useState<ContentfulProduct[]>([]);
-  const [stats, setStats] = useState<ContentfulStat[]>([]);
-  const [insights, setInsights] = useState<ContentfulInsight[]>([]);
+  const [productItems, setProductItems] = useState<ContentfulProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // Default values to ensure UI doesn't break if data is missing
-  const defaultProducts: ContentfulProduct[] = [
-    { key: 'default1', id: 'copper', title: 'Copper', description: 'High-quality copper scrap and recycled materials', image: '/p1.png' },
-    { key: 'default2', id: 'brass', title: 'Brass', description: 'Premium brass materials for industrial applications', image: '/p2.png' },
-    { key: 'default3', id: 'aluminum', title: 'Aluminum', description: 'Recycled aluminum for sustainable manufacturing', image: '/p3.png' },
+
+  // Define stats data
+  const stats = [
+    { number: '25+', label: 'Countries Served' },
+    { number: '₵50M', label: 'Annual Trading Volume' },
+    { number: '15', label: 'Years of Expertise' },
+    { number: '180+', label: 'Partnerships' }
+  ];
+
+  // Define insights data
+  const insights = [
+    {
+      id: '1',
+      title: 'Metal Market Analysis',
+      description: 'Our latest analysis of global recycling trends, supply constraints, and price forecasts.',
+      image: '/p2.png'
+    },
+    {
+      id: '2',
+      title: 'Sustainable Trading Practices',
+      description: 'How environmental regulations are shaping the future of commodities trading in European markets.',
+      image: '/p3.png'
+    },
+    {
+      id: '3',
+      title: 'Supply Chain Resilience',
+      description: 'Strategic approaches to strengthening supply chains against global disruptions and market volatility.',
+      image: '/p4.png'
+    }
   ];
 
   const fetchData = async () => {
@@ -42,18 +60,14 @@ export default function Home() {
     setError(null);
     
     try {
-      // Fetch all data in parallel for better performance
-      const [pageContent, productsData, statsData, insightsData] = await Promise.all([
+      // Fetch page content and products in parallel
+      const [pageContent, products] = await Promise.all([
         fetchPageContent('home', locale),
-        fetchProducts(locale === 'sv' ? 'sv-SE' : 'en-US'),
-        fetchStats(locale === 'sv' ? 'sv-SE' : 'en-US'),
-        fetchInsights(locale === 'sv' ? 'sv-SE' : 'en-US')
+        fetchProducts()
       ]);
       
       setContent(pageContent);
-      setProducts(productsData);
-      setStats(statsData);
-      setInsights(insightsData);
+      setProductItems(products);
     } catch (err) {
       console.error("Error fetching data:", err);
       setError("Error loading content. Please try again.");
@@ -66,6 +80,14 @@ export default function Home() {
     fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
+
+  // Transform products to markets format
+  const markets = productItems.slice(0, 3).map(product => ({
+    id: product.id || product.sys?.id || String(Math.random()),
+    title: product.title || 'Product',
+    description: product.description || 'Expert recycling solution for diverse customer needs.',
+    image: product.image || product.thumbnail || '/default.png'
+  }));
 
   return (
     <MUIThemeProvider>
@@ -81,28 +103,14 @@ export default function Home() {
                 <Header />
                 
                 {/* Hero section */}
-                <S.Hero style={{ 
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${content.bgImg && content.bgImg.startsWith('http') ? content.bgImg : `/${content.bgImg || 'home.png'}`})`
-                }}>
+                <S.Hero style={{ marginTop: '80px' }}>
                   <S.HeroContent>
                     <S.H1>
-                      {content.headline && content.headline.length > 0 
-                        ? content.headline.map((part, index) => 
-                            // Make the second part the highlighted one (index 1)
-                            index === 1 ? <S.Span key={index}>{part}</S.Span> : part
-                          )
-                        : (
-                          <>
-                            Global <S.Span>Recycling</S.Span> Solutions
-                          </>
-                        )
-                      }
+                      Global <S.Span>Recycling</S.Span> Solutions
                     </S.H1>
                     <S.Subtitle>{content.subHeadline || 'From Europe to Asia, connecting markets with exceptional service and expertise'}</S.Subtitle>
                     <S.HeroButtons>
-                      <S.CtaButton as="a" href={`/${locale}/services`}>
-                        Our Services
-                      </S.CtaButton>
+                      <S.CtaButton as="a" href={`/${locale}/services`}>Our Services</S.CtaButton>
                       <S.SecondaryButton as="a" href={`/${locale}/about`}>
                         Learn More
                         <S.ArrowIcon 
@@ -121,19 +129,17 @@ export default function Home() {
                   </S.HeroContent>
                 </S.Hero>
                 
-                {/* Products section */}
+                {/* Markets section */}
                 <S.Section>
-                  <S.SectionTitle>Our Products</S.SectionTitle>
+                  <S.SectionTitle>Our Markets</S.SectionTitle>
                   <S.Grid>
-                    {(products.length > 0 ? products : defaultProducts).slice(0, 3).map(product => (
-                      <S.Card key={product.id || product.key}>
-                        <a href={`/${locale}/product/${product.id || ''}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                          <S.CardImg style={{ backgroundImage: `url(${product.image || `/p${Math.floor(Math.random() * 6) + 1}.png`})` }} />
-                          <S.CardContent>
-                            <S.CardTitle>{product.title || 'Product'}</S.CardTitle>
-                            <S.CardText>{product.description || 'High-quality recycled materials'}</S.CardText>
-                          </S.CardContent>
-                        </a>
+                    {markets.map(market => (
+                      <S.Card key={market.id}>
+                        <S.CardImg style={{ backgroundImage: `url(${market.image})` }} />
+                        <S.CardContent>
+                          <S.CardTitle>{market.title}</S.CardTitle>
+                          <S.CardText>{market.description}</S.CardText>
+                        </S.CardContent>
                       </S.Card>
                     ))}
                   </S.Grid>
@@ -143,8 +149,8 @@ export default function Home() {
                 <S.Section dark={true}>
                   <S.SectionTitle>Our Global Reach</S.SectionTitle>
                   <S.StatsContainer>
-                    {stats.map((stat) => (
-                      <S.Stat key={stat.id}>
+                    {stats.map((stat, index) => (
+                      <S.Stat key={index}>
                         <S.StatNumber>{stat.number}</S.StatNumber>
                         <S.StatLabel>{stat.label}</S.StatLabel>
                       </S.Stat>
@@ -158,13 +164,11 @@ export default function Home() {
                   <S.Grid>
                     {insights.map(insight => (
                       <S.Card key={insight.id}>
-                        <a href={`/${locale}${insight.link}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                          <S.CardImg style={{ backgroundImage: `url(${insight.image})` }} />
-                          <S.CardContent>
-                            <S.CardTitle>{insight.title}</S.CardTitle>
-                            <S.CardText>{insight.description}</S.CardText>
-                          </S.CardContent>
-                        </a>
+                        <S.CardImg style={{ backgroundImage: `url(${insight.image})` }} />
+                        <S.CardContent>
+                          <S.CardTitle>{insight.title}</S.CardTitle>
+                          <S.CardText>{insight.description}</S.CardText>
+                        </S.CardContent>
                       </S.Card>
                     ))}
                   </S.Grid>

@@ -31,8 +31,20 @@ const GradientOverlay = styled("div")(() => {
     paddingTop: "30px",
     paddingLeft: "140px",
     paddingRight: "140px",
-    background:
-      "linear-gradient(to bottom, rgba(10, 10, 10, 0), rgba(10, 10, 10, 0.9))",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    paddingBottom: "80px",
+    background: `
+      linear-gradient(
+        to bottom,
+        rgba(10, 10, 10, 0.2),
+        rgba(10, 10, 10, 0.4) 25%,
+        rgba(10, 10, 10, 0.8) 75%,
+        rgba(10, 10, 10, 0.95)
+      )
+    `,
+    backdropFilter: "blur(2px)",
     [`@media (max-width: ${theme.breakPoint.tablet})`]: {
       paddingLeft: "60px",
       paddingRight: "60px",
@@ -40,10 +52,7 @@ const GradientOverlay = styled("div")(() => {
     [`@media (max-width: ${theme.breakPoint.mobile})`]: {
       paddingLeft: "20px",
       paddingRight: "20px",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      paddingBottom: "100px",
+      paddingBottom: "60px",
     },
   };
 });
