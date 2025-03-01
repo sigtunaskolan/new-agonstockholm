@@ -17,6 +17,7 @@ export default function Home() {
     headline: [],
     subHeadline: "",
     bgImg: "",
+    richTextContent: "",
   });
   const [productItems, setProductItems] = useState<ContentfulProduct[]>([]);
   const [loading, setLoading] = useState(true);
