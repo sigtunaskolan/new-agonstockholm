@@ -1,0 +1,31 @@
+{
+  "Home": {
+    "GET_IN_TOUCH": "Get in touch",
+    "LERAN_MORE": "Learn more",
+    "OUR_PRODUCTS": "Our Products",
+    "PRODUCTS_HEADLINE": "Check out our latest Product on the current Scraping industry"
+  },
+  "About": {
+    "WHO_WE_ARE": "Discover Our World"
+  },
+  "Sustainability": {
+    "WHY_AGON": "Agon / Environments"
+  },
+  "Contact": {
+    "CONTACT_US": "Contact us",
+    "CONTACT": "Contact",
+    "BASED_IN": "Based in",
+    "FULL_NAME": "Full name",
+    "EMAIL": "E-mail",
+    "MESSAGE": "Message"
+  },
+  "Menu": {
+    "HOME": "Home",
+    "ABOUT": "About Us",
+    "SUSTAINABILITY": "Sustainability",
+    "CONTACT": "Contact",
+    "LET_TALK": "Let's talk",
+    "REACH_OUT": "Reach out",
+    "ADDRESS": "Address"
+  }
+}

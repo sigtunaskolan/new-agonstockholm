@@ -1,0 +1,37 @@
+{
+  "name": "sleipnircars",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "heroku-postbuild": "next build",
+    "publish": "git push heroku main"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.11",
+    "@mui/material": "^5.14.11",
+    "@mui/types": "^7.2.4",
+    "contentful": "^10.6.4",
+    "lottie-web": "^5.12.2",
+    "next": "14.0.0",
+    "next-intl": "2.22.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "eslint-plugin-react": "^7.33.2",
+    "typescript": "latest"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "Home": {
+    "GET_IN_TOUCH": "Kontakta oss",
+    "LERAN_MORE": "Läs mer",
+    "OUR_PRODUCTS": "Våra produkter",
+    "PRODUCTS_HEADLINE": "Kolla in vår senaste produkt om den aktuella skrapindustrin"
+  },
+  "About": {
+    "WHO_WE_ARE": "Upptäck Vår Värld"
+  },
+  "Sustainability": {
+    "WHY_AGON": "Agon / miljöer"
+  },
+  "Contact": {
+    "CONTACT_US": "Kontakta oss",
+    "CONTACT": "Kontakt",
+    "BASED_IN": "Baserad i",
+    "FULL_NAME": "Fullständigt namn",
+    "EMAIL": "E-post",
+    "MESSAGE": "Meddelande"
+  },
+  "Menu": {
+    "HOME": "Hem",
+    "ABOUT": "Om oss",
+    "SUSTAINABILITY": "Hållbarhet",
+    "CONTACT": "Kontakt",
+    "LET_TALK": "Låt oss prata",
+    "REACH_OUT": "Nå ut",
+    "ADDRESS": "Adress"
+  }
+}
