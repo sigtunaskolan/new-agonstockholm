@@ -17,7 +17,10 @@
     "BASED_IN": "Baserad i",
     "FULL_NAME": "Fullständigt namn",
     "EMAIL": "E-post",
-    "MESSAGE": "Meddelande"
+    "MESSAGE": "Meddelande",
+    "SUBMIT": "Skicka",
+    "SUCCESS_MESSAGE": "Tack för ditt meddelande. Vi återkommer till dig så snart som möjligt.",
+    "FORM_ERROR": "Det uppstod ett fel när formuläret skickades. Vänligen försök igen."
   },
   "Menu": {
     "HOME": "Hem",
@@ -27,5 +30,17 @@
     "LET_TALK": "Låt oss prata",
     "REACH_OUT": "Nå ut",
     "ADDRESS": "Adress"
+  },
+  "Error": {
+    "title": "Fel",
+    "defaultMessage": "Något gick fel. Vänligen försök igen.",
+    "retry": "Försök igen",
+    "contentNotFound": "Innehållet kunde inte laddas",
+    "networkError": "Nätverksfel. Kontrollera din anslutning."
+  },
+  "Common": {
+    "loading": "Laddar...",
+    "readMore": "Läs mer",
+    "viewDetails": "Visa detaljer"
   }
 }

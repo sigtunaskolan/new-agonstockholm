@@ -17,7 +17,10 @@
     "BASED_IN": "Based in",
     "FULL_NAME": "Full name",
     "EMAIL": "E-mail",
-    "MESSAGE": "Message"
+    "MESSAGE": "Message",
+    "SUBMIT": "Submit",
+    "SUCCESS_MESSAGE": "Thank you for your message. We will get back to you soon.",
+    "FORM_ERROR": "There was an error submitting the form. Please try again."
   },
   "Menu": {
     "HOME": "Home",
@@ -27,5 +30,17 @@
     "LET_TALK": "Let's talk",
     "REACH_OUT": "Reach out",
     "ADDRESS": "Address"
+  },
+  "Error": {
+    "title": "Error",
+    "defaultMessage": "Something went wrong. Please try again.",
+    "retry": "Try Again",
+    "contentNotFound": "Content could not be loaded",
+    "networkError": "Network error. Please check your connection."
+  },
+  "Common": {
+    "loading": "Loading...",
+    "readMore": "Read More",
+    "viewDetails": "View Details"
   }
 }

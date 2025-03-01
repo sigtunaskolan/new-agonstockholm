@@ -1,94 +1,69 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ContentContext from "@/contextsConfig/content/ContentContext";
-import { createClient } from "contentful";
 import { useLocale } from "next-intl";
 import Hero from "@/components/home/Hero";
 import ProductsList from "@/components/home/ProductsList";
 import Footer from "@/components/Shared/Footer";
-import data from "../../src/contextsConfig/content/data";
 import ThemeProvider from "../../src/contextsConfig/theme/ThemeProvider";
 import MUIThemeProvider from "../../src/contextsConfig/MUIThemeProvider";
-import { parseHeaderHeadline } from "@/utils/stringUtils";
-
-type HeroProps = {
-  headline: Array<any>; // eslint-disable-line
-  subHeadline: string;
-  bgImg: string;
-};
+import Loading from "@/components/Shared/Loading";
+import ErrorDisplay from "@/components/Shared/ErrorDisplay";
+import { fetchPageContent, fetchProducts, ContentfulHero, ContentfulProduct } from "@/utils/api";
 
 export default function Home() {
   const locale = useLocale();
-  const [content, setContent] = useState({
+  const [content, setContent] = useState<ContentfulHero>({
     headline: [],
     subHeadline: "",
     bgImg: "",
-  } as HeroProps);
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const [productItems, setProductItems] = useState([] as any); // eslint-disable-line
+  });
+  const [productItems, setProductItems] = useState<ContentfulProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
-    const client = createClient({
-      space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID || "",
-      accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN || "",
-    });
-
-    client
-      .getEntries()
-      .then((response) => {
-        let resp;
-        if (locale === "sv") {
-          resp = response.items.find((item) => item.fields.page === "home_sv");
-        } else {
-          resp = response.items.find((item) => item.fields.page === "home");
-        }
-
-        let tempProductItems = response.items.filter(
-          (item) => item.sys.contentType.sys.id === "products"
-        );
-
-        tempProductItems = tempProductItems
-          .map((item) => {
-            const bgImg =
-              (item?.fields?.productImage as any)?.fields?.file.url || ""; // eslint-disable-line
-            return {
-              key: item.sys.id,
-              label: item.fields.name,
-              bgImg: `https:${bgImg}`,
-              id: item.fields.id,
-            };
-          })
-          .sort((a, b) => {
-            return Number(a.id) - Number(b.id);
-          }) as any; // eslint-disable-line
-
-        const subheadline = resp?.fields?.subheadline as any; // eslint-disable-line
-        const contentTemp = {
-          headline: parseHeaderHeadline(
-            (resp?.fields?.headline as string) || ""
-          ),
-          subHeadline: subheadline.content[0].content[0].value || "",
-          bgImg: data.home.bgImg || "",
-        };
-        setContent(contentTemp as HeroProps);
-        setProductItems(tempProductItems);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setLoading(true);
+    setError(null);
+    
+    try {
+      // Fetch page content and products in parallel
+      const [pageContent, products] = await Promise.all([
+        fetchPageContent('home', locale),
+        fetchProducts()
+      ]);
+      
+      setContent(pageContent);
+      setProductItems(products);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError("Error loading content. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
 
   return (
     <MUIThemeProvider>
       <ThemeProvider>
         <ContentContext.Provider value={content}>
           <main>
-            <Hero />
-            <ProductsList productItems={productItems} />
-            <Footer />
+            {loading ? (
+              <Loading fullScreen />
+            ) : error ? (
+              <ErrorDisplay message={error} onRetry={fetchData} />
+            ) : (
+              <>
+                <Hero />
+                <ProductsList productItems={productItems} />
+                <Footer />
+              </>
+            )}
           </main>
         </ContentContext.Provider>
       </ThemeProvider>

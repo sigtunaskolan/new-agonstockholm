@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { useTheme } from "@emotion/react";
+import Image from "next/image";
 
 type Props = {
   image: string;
@@ -45,7 +46,13 @@ export default function RightSection({ image }: Props) {
             justifyContent: "flex-end",
           }}
         >
-          <img src="/points.svg" alt="Icon" />
+          <Image 
+            src="/points.svg" 
+            alt="Icon"
+            width={24}
+            height={24}
+            priority
+          />
         </div>
         <div
           style={{
