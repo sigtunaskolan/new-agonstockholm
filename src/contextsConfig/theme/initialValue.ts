@@ -2,15 +2,17 @@ import Theme from "./themeType";
 
 const initialTheme: Theme = {
   colors: {
-    primary: "#52F597",
-    secondary: "#030712",
+    primary: "#1e3a5f",
+    secondary: "#62e999",
     secondaryDark: "#151024",
     white: "#FFF",
-    gray: "#fafafa",
+    gray: "#f8f8f8",
+    dark: "#121212",
     grayDark: "#5e6068",
     lightGray: "#adb1b9",
     hoverGray: "#7a7a7a",
     silverGray: "#c0c0c0ff",
+    accent: "#f0a04b",
     active: "#E57E44",
     backgroundColor: "rgb(10, 10, 10)",
     backgroundColorLight: "#f2ede6",

@@ -1,39 +1,61 @@
 import React from "react";
 import Link from "next/link";
-import { useTheme } from "@emotion/react";
 import { useLocale } from "next-intl";
-import { useTranslations } from "next-intl";
-import Container from "./container";
-import Button from "./Button";
+import styled from "@emotion/styled";
+
+const HeroButtons = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+interface CtaButtonProps {
+  color?: string;
+  textColor?: string;
+  border?: string;
+  hoverColor?: string;
+  hoverTextColor?: string;
+}
+
+const CtaButton = styled.button<CtaButtonProps>`
+  background-color: ${props => props.color || 'var(--secondary)'};
+  color: ${props => props.textColor || 'var(--dark)'};
+  border: ${props => props.border || 'none'};
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &:hover {
+    background-color: ${props => props.hoverColor || 'white'};
+    transform: translateY(-2px);
+    color: ${props => props.hoverTextColor || 'var(--dark)'};
+  }
+`;
 
 export default function CTA() {
-  const theme = useTheme();
-  const t = useTranslations("Home");
   const locale = useLocale();
-  const buttons = [
-    { text: t("GET_IN_TOUCH"), backgroundColor: theme.colors.primary },
-    { text: t("LERAN_MORE"), backgroundColor: theme.colors.white },
-  ];
 
   return (
-    <Container
-      childrenArray={[
-        <a href="#productsList" key={0}>
-          <Button
-            text={buttons[1].text}
-            backgroundColor={buttons[1].backgroundColor}
-            key={1}
-            withIcon
-          />
-        </a>,
-        <Link href={"/contact"} locale={locale} key={2}>
-          <Button
-            text={buttons[0].text}
-            backgroundColor={buttons[0].backgroundColor}
-            key={0}
-          />
-        </Link>,
-      ]}
-    />
+    <HeroButtons>
+      <Link href={"/contact"} locale={locale}>
+        <CtaButton color="var(--secondary)">Our Services</CtaButton>
+      </Link>
+      <a href="#productsList">
+        <CtaButton 
+          color="transparent" 
+          textColor="white" 
+          border="2px solid white"
+          hoverColor="white"
+          hoverTextColor="var(--dark)"
+        >
+          Learn More
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </CtaButton>
+      </a>
+    </HeroButtons>
   );
 }

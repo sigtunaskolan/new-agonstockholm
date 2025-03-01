@@ -6,11 +6,9 @@ const Container = styled("div")(() => {
   return {
     maxWidth: "900px",
     marginBottom: "32px",
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    display: "block", // Change to block display
     [`@media (max-width: ${theme.breakPoint.mobile})`]: {
-      justifyContent: "center",
+      textAlign: "center",
     },
   };
 });

@@ -4,15 +4,19 @@ import styled from "@emotion/styled";
 const Paragraph = styled("p")(() => {
   const theme = useTheme();
   return {
-    fontSize: "20px",
-    fontFamily: "sans-serif",
+    fontSize: "1.5rem",
+    fontFamily: "'Helvetica Neue', Arial, sans-serif",
     maxWidth: "820px",
-    marginLeft: "12px",
-    color: theme.colors.gray,
+    marginBottom: "2.5rem",
+    marginTop: "0.5rem",
+    paddingLeft: "2px", // Add slight padding to align with headline
+    fontWeight: 300,
+    color: theme.colors.white,
     [`@media (max-width: ${theme.breakPoint.mobile})`]: {
-      fontSize: "15px",
+      fontSize: "1.2rem",
       textAlign: "center",
       maxWidth: "35ch",
+      paddingLeft: 0,
     },
   };
 });

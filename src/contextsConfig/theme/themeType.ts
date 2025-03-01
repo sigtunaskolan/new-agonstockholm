@@ -4,10 +4,12 @@ type ColorPalette = {
   secondaryDark: string;
   white: string;
   gray: string;
+  dark: string;
   grayDark: string;
   lightGray: string;
   hoverGray: string;
   silverGray: string;
+  accent: string;
   backgroundColor: string;
   backgroundColorLight: string;
   active: string;

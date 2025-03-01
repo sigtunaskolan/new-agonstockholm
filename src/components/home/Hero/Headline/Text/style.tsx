@@ -5,18 +5,20 @@ import { TokenVariant } from "@/contextsConfig/content/contentType";
 const Text = styled("span")((prop) => {
   const theme = useTheme();
   return {
-    marginRight: 16,
-    fontSize: "80px",
-    fontWeight: "bold",
-    fontFamily: "sans-serif",
+    marginRight: 0,
+    fontSize: "6rem",
+    fontWeight: 700,
+    lineHeight: 1,
+    fontFamily: "'Helvetica Neue', Arial, sans-serif",
+    display: "inline-block",
     color:
       prop.color === TokenVariant.DEFAULT
         ? theme.colors.white
-        : theme.colors.primary,
+        : theme.colors.secondary,
     whiteSpace: "nowrap",
     [`@media (max-width: ${theme.breakPoint.mobile})`]: {
       marginRight: 8,
-      fontSize: "30px",
+      fontSize: "3.5rem",
       whiteSpace: "normal",
     },
   };

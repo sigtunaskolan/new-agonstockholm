@@ -35,12 +35,12 @@ function ContactInfo() {
     },
     { 
       icon: <EmailIcon />, 
-      text: "info@agonskot.se",
-      href: "mailto:info@agonskot.se"
+      text: "info@agonmetals.com",
+      href: "mailto:info@agonmetals.com"
     },
     { 
       icon: <PhoneIcon />, 
-      text: "073-835 66 99",
+      text: "+46 73-835 66 99",
       href: "tel:+46738356699"
     },
   ];

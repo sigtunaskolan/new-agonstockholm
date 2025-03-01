@@ -10,6 +10,7 @@ import MUIThemeProvider from "../../src/contextsConfig/MUIThemeProvider";
 import Loading from "@/components/Shared/Loading";
 import ErrorDisplay from "@/components/Shared/ErrorDisplay";
 import { fetchPageContent, fetchProducts, ContentfulHero, ContentfulProduct } from "@/utils/api";
+import MarketInsights from "@/components/home/MarketInsights";
 
 export default function Home() {
   const locale = useLocale();
@@ -62,6 +63,28 @@ export default function Home() {
               <>
                 <Hero />
                 <ProductsList productItems={productItems} />
+                <section className="section section-dark">
+                  <h2 className="section-title">Our Global Reach</h2>
+                  <div className="stats-container">
+                    <div className="stat">
+                      <div className="stat-number">25+</div>
+                      <div className="stat-label">Countries Served</div>
+                    </div>
+                    <div className="stat">
+                      <div className="stat-number">$840M</div>
+                      <div className="stat-label">Annual Trading Volume</div>
+                    </div>
+                    <div className="stat">
+                      <div className="stat-number">15</div>
+                      <div className="stat-label">Years of Expertise</div>
+                    </div>
+                    <div className="stat">
+                      <div className="stat-number">180+</div>
+                      <div className="stat-label">Partnerships</div>
+                    </div>
+                  </div>
+                </section>
+                <MarketInsights />
                 <Footer />
               </>
             )}

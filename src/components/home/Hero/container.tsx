@@ -15,7 +15,10 @@ const Container = styled("div")(() => {
     position: "relative",
     height: "100vh",
     width: "100vw",
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.dark,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start", // Change to top alignment
   };
 });
 
@@ -28,22 +31,23 @@ const GradientOverlay = styled("div")(() => {
     bottom: "0",
     left: "0",
     zIndex: 10,
-    paddingTop: "30px",
-    paddingLeft: "140px",
-    paddingRight: "140px",
+    padding: "0",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
     background:
-      "linear-gradient(to bottom, rgba(10, 10, 10, 0), rgba(10, 10, 10, 0.9))",
+      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))",
     [`@media (max-width: ${theme.breakPoint.tablet})`]: {
-      paddingLeft: "60px",
-      paddingRight: "60px",
+      paddingLeft: "0",
+      paddingRight: "0",
     },
     [`@media (max-width: ${theme.breakPoint.mobile})`]: {
-      paddingLeft: "20px",
-      paddingRight: "20px",
+      paddingLeft: "0",
+      paddingRight: "0",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-between",
-      paddingBottom: "100px",
+      justifyContent: "flex-start",
+      paddingBottom: "0",
     },
   };
 });

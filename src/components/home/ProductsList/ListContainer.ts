@@ -4,13 +4,12 @@ import { useTheme } from "@emotion/react";
 const ListContainer = styled("div")(() => {
   const theme = useTheme();
   return {
-    display: "flex",
-    width: "90vw",
-    height: "350px",
-    backgroundColor: "white",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: "2rem",
+    width: "100%",
     [`@media (max-width: ${theme.breakPoint.mobile})`]: {
-      flexDirection: "column",
-      height: "1000px",
+      gridTemplateColumns: "1fr",
     },
   };
 });
