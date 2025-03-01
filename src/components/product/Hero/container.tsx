@@ -2,16 +2,14 @@
 import React, { ReactNode } from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
+import Image from "next/image";
 
 type Props = {
   bgImg: string;
   children: ReactNode;
 };
-type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
-  bgImg: string;
-};
 
-const Container = styled.div<ContainerProps>(({ bgImg }) => {
+const Container = styled.div(() => {
   const theme = useTheme();
 
   return {
@@ -19,10 +17,6 @@ const Container = styled.div<ContainerProps>(({ bgImg }) => {
     minHeight: "100vh",
     width: "100%",
     backgroundColor: theme.colors.secondary,
-    backgroundImage: `url(${bgImg})`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "top",
-    backgroundSize: "cover",
     [`@media (max-width: ${theme.breakPoint.desktop})`]: {
       width: "100%",
     },
@@ -57,7 +51,18 @@ export default function GradientBackgroundComponent({
   bgImg,
 }: Props) {
   return (
-    <Container bgImg={bgImg}>
+    <Container>
+      <Image 
+        src={bgImg} 
+        alt="Product background" 
+        fill 
+        className="z-0 object-cover"
+        priority
+        sizes="100vw"
+        quality={85}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+      />
       <GradientOverlay>{children}</GradientOverlay>
     </Container>
   );

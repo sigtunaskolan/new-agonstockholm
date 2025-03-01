@@ -4,6 +4,7 @@ import { Document } from '@contentful/rich-text-types';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { Box, Typography, Link } from '@mui/material';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 
 interface RichTextProps {
   content: string | Document;
@@ -106,11 +107,16 @@ const options = {
       
       if (mimeType.includes('image')) {
         return (
-          <img
-            src={`https:${url}`}
-            alt={description || title || 'Embedded image'}
-            style={{ maxWidth: '100%' }}
-          />
+          <div style={{ position: 'relative', width: '100%', height: '400px', maxWidth: '800px', margin: '1.5rem 0' }}>
+            <Image
+              src={`https:${url}`}
+              alt={description || title || 'Embedded image'}
+              fill
+              style={{ objectFit: 'contain' }}
+              sizes="(max-width: 768px) 100vw, 800px"
+              quality={85}
+            />
+          </div>
         );
       }
       

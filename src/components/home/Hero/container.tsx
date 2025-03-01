@@ -54,7 +54,17 @@ export default function GradientBackgroundComponent({
 }: Props) {
   return (
     <Container>
-      <Image src={`/${bgImg}`} fill className="z-0" alt="Background" />
+      <Image 
+        src={`/${bgImg}`} 
+        fill 
+        className="z-0 object-cover" 
+        alt="Background"
+        priority
+        sizes="100vw"
+        quality={90}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+      />
       <GradientOverlay>{children}</GradientOverlay>
     </Container>
   );

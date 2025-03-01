@@ -29,16 +29,22 @@ export default function RightSection({ image }: Props) {
         style={{
           height: "600px",
           width: "100%",
-          backgroundImage: `url(https://${image})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "top",
-          backgroundSize: "contain",
+          position: "relative",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
+        <Image
+          src={`https://${image}`}
+          alt="Statistical visualization"
+          fill
+          style={{ objectFit: "contain" }}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          quality={85}
+          loading="lazy"
+        />
         <div
           style={{
             width: "100%",
